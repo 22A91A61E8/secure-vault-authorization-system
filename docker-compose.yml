@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  hardhat:
+    build: .
+    ports:
+      - "8545:8545"
+    volumes:
+      - ./contracts:/app/contracts
+      - ./scripts:/app/scripts
+    command: sh -c "npx hardhat node & sleep 5 && npx hardhat run scripts/deploy.js --network localhost && tail -f /dev/null"
+    environment:
+      - NODE_ENV=development
